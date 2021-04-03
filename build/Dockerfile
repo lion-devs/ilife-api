@@ -12,8 +12,8 @@ WORKDIR /src/
 COPY . /src
 
 RUN set -eux;\
-    CGO_ENABLED=0 go build -v -o /bin/test /src/cmd/ilife-api
+    CGO_ENABLED=0 go build -v -o /bin/ilife-api /src/cmd
 
 EXPOSE $PORT
 
-CMD /bin/test
+CMD /bin/ilife-api
