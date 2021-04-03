@@ -1,0 +1,945 @@
+{
+	"info": {
+		"_postman_id": "39d584ad-981e-404e-9df5-beef7f02157c",
+		"name": "TKUPM",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth API",
+			"item": [
+				{
+					"name": "Signup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set('jwt_token', responseBody);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n\t\t\"hash_password\": \"1234\",\n        \"email\": \"justin.hung@asuscloud.com\",\n        \"user_name\": \"Justin Hung\",\n        \"language\": \"zh/TW\",\n        \"mobile_number\": \"886960930586\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}//api/v1/signup",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"",
+								"api",
+								"v1",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// var data = pm.response.json();\r",
+									"// if (data.data.token) {\r",
+									"//   pm.environment.set('jwt_token', data.data.token);\r",
+									"// }"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "test@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/{{version}}/login",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Signout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();\r",
+									"if (data.data.token) {\r",
+									"  pm.environment.set('jwt_token', data.data.token);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"justin.hung@asuscloud.com\",\n    \"password\": \"1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}//api/{{version}}/signin",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"",
+								"api",
+								"{{version}}",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User API",
+			"item": [
+				{
+					"name": "(ADMIN) Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n   {\n        \"userid\": \"junit.test@asuscloud.com\",\n        \"uuid\": \"d0fbec93-fa95-42e5-8f61-97b03cce318d\",\n        \"hash_password\": \"D81D359FA93AB590813279D02803238A\",\n        \"email\": \"junit.test@asuscloud.com\",\n        \"user_name\": \"Junit Test\",\n        \"language\": \"zh/TW\",\n        \"create_time\": \"2020-05-25T16:00:00.000+0000\",\n        \"last_access_time\": \"2020-08-25T16:00:00.000+0000\",\n        \"mobile_number\": \"886988852072\",\n        \"status\": 0\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/{{version}}/user",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/{{version}}/user",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n   {\n        \"userid\": \"usertest@asuscloud.com\",\n        \"uuid\": \"e7918af1-25eb-4433-963c-c4e34e0480da\",\n        \"hash_password\": \"25d55ad283aa400af464c76d713c07ad\",\n        \"email\": \"usertest@asuscloud.com\",\n        \"user_name\": \"usertest\",\n        \"language\": \"US/en\",\n        \"create_time\": \"2020-04-19T16:00:00.000+0000\",\n        \"last_access_time\": \"2020-04-20T16:00:00.000+0000\",\n        \"mobile_number\": \"886988852000\",\n        \"status\": 0\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/{{version}}/user",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "(ADMIN) Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/{{version}}/user",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "(ADMIN) List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/{{version}}/users",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bus API",
+			"item": [
+				{
+					"name": "(ADMIN) Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n   {\n        \"busid\": \"abc\",\n        \"uuid\": \"d0fbec93-fa95-42e5-8f61-97b03cce318d\",\n        \"create_time\": \"2020-05-25T16:00:00.000+0000\",\n        \"last_access_time\": \"2020-08-25T16:00:00.000+0000\",\n        \"status\": 0\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/{{version}}/bus",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"bus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/{{version}}/bus",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"bus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "(ADMIN) Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n   {\n        \"userid\": \"usertest@asuscloud.com\",\n        \"uuid\": \"e7918af1-25eb-4433-963c-c4e34e0480da\",\n        \"hash_password\": \"25d55ad283aa400af464c76d713c07ad\",\n        \"email\": \"usertest@asuscloud.com\",\n        \"user_name\": \"usertest\",\n        \"language\": \"US/en\",\n        \"create_time\": \"2020-04-19T16:00:00.000+0000\",\n        \"last_access_time\": \"2020-04-20T16:00:00.000+0000\",\n        \"mobile_number\": \"886988852000\",\n        \"status\": 0\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/{{version}}/bus",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"bus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "(ADMIN) Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/{{version}}/bus",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"bus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/{{version}}/bus",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"bus"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Repair API",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n   {\n        \"userid\": \"junit.test@asuscloud.com\",\n        \"uuid\": \"d0fbec93-fa95-42e5-8f61-97b03cce318d\",\n        \"hash_password\": \"D81D359FA93AB590813279D02803238A\",\n        \"email\": \"junit.test@asuscloud.com\",\n        \"user_name\": \"Junit Test\",\n        \"language\": \"zh/TW\",\n        \"create_time\": \"2020-05-25T16:00:00.000+0000\",\n        \"last_access_time\": \"2020-08-25T16:00:00.000+0000\",\n        \"mobile_number\": \"886988852072\",\n        \"status\": 0\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/{{version}}/repair",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"repair"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/{{version}}/repair",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"repair"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n   {\n        \"userid\": \"usertest@asuscloud.com\",\n        \"uuid\": \"e7918af1-25eb-4433-963c-c4e34e0480da\",\n        \"hash_password\": \"25d55ad283aa400af464c76d713c07ad\",\n        \"email\": \"usertest@asuscloud.com\",\n        \"user_name\": \"usertest\",\n        \"language\": \"US/en\",\n        \"create_time\": \"2020-04-19T16:00:00.000+0000\",\n        \"last_access_time\": \"2020-04-20T16:00:00.000+0000\",\n        \"mobile_number\": \"886988852000\",\n        \"status\": 0\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/{{version}}/repair",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"repair"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "(ADMIN) Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/{{version}}/repair",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"repair"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/{{version}}/repair",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"repair"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Package API",
+			"item": [
+				{
+					"name": "(ADMIN) Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n   {\n        \"busid\": \"abc\",\n        \"uuid\": \"d0fbec93-fa95-42e5-8f61-97b03cce318d\",\n        \"create_time\": \"2020-05-25T16:00:00.000+0000\",\n        \"last_access_time\": \"2020-08-25T16:00:00.000+0000\",\n        \"status\": 0\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/{{version}}/package",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"package"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/{{version}}/package",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"package"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "(ADMIN) Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n   {\n        \"userid\": \"usertest@asuscloud.com\",\n        \"uuid\": \"e7918af1-25eb-4433-963c-c4e34e0480da\",\n        \"hash_password\": \"25d55ad283aa400af464c76d713c07ad\",\n        \"email\": \"usertest@asuscloud.com\",\n        \"user_name\": \"usertest\",\n        \"language\": \"US/en\",\n        \"create_time\": \"2020-04-19T16:00:00.000+0000\",\n        \"last_access_time\": \"2020-04-20T16:00:00.000+0000\",\n        \"mobile_number\": \"886988852000\",\n        \"status\": 0\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/{{version}}/package",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"package"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "(ADMIN) Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/{{version}}/package",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"package"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/{{version}}/package?lostfound=true",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"package"
+							],
+							"query": [
+								{
+									"key": "lostfound",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test API",
+			"item": [
+				{
+					"name": "Hello World",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}",
+							"host": [
+								"{{HOST}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "test",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"project\": \"aaaa\",\r\n    \"eval\": \"mkdir bbbb\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/cmd",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"cmd"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
