@@ -33,5 +33,5 @@ func main() {
 		}
 	})
 	port := "8080"
-	server.Run(":" + port) // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+	server.Run(":" + port) // listen and serve on 0.0.0.0:8080
 }
