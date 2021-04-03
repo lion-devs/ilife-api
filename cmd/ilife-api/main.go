@@ -19,6 +19,14 @@ func main() {
 	server.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "Hello world",
+			"interface": []interface{}{
+				"str1",
+				"str2",
+			},
+			"map": map[string]string {
+				"k1": "v1",
+				"k2": "v2",
+			},
 		})
 	})
 
@@ -26,7 +34,9 @@ func main() {
 		token := loginController.Login(ctx)
 		if token != "" {
 			ctx.JSON(http.StatusOK, gin.H{
-				"token": token,
+				"data": map[string]string {
+					"token": token,
+				},
 			})
 		} else {
 			ctx.JSON(http.StatusUnauthorized, nil)
