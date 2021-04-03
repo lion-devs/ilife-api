@@ -2,8 +2,8 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/lion-devs/ilife-api/cmd/ilife-api/auth"
-	"github.com/lion-devs/ilife-api/cmd/ilife-api/dto"
+	"github.com/lion-devs/ilife-api/pkg/auth"
+	"github.com/lion-devs/ilife-api/pkg/dto"
 )
 
 //login contorller interface

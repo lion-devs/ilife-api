@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/lion-devs/ilife-api/cmd/ilife-api/auth"
-	"github.com/lion-devs/ilife-api/cmd/ilife-api/controller"
+	"github.com/lion-devs/ilife-api/pkg/auth"
+	"github.com/lion-devs/ilife-api/pkg/controller"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"fmt"
-	service "github.com/lion-devs/ilife-api/cmd/ilife-api/auth"
+	service "github.com/lion-devs/ilife-api/pkg/auth"
 
 	"net/http"
 
