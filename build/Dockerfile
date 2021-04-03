@@ -1,19 +1,19 @@
-FROM golang:alpine AS build-env
+FROM golang:1.16.3-alpine3.13
 
 #MAINTAINER hugh.12345zxcvb@gmail.com
+#MAINTAINER gene31105@gmail.com
+
+ARG PORT
 
 ENV GIN_MODE=release
-ENV PORT=8080
 
-# Alpine Linux package management
-RUN apk update
-RUN apk add git
+WORKDIR /src/
 
-COPY . /go/src/github.com/lion-devs/ilife-api
+COPY . /src
+
+RUN set -eux;\
+    CGO_ENABLED=0 go build -v -o /bin/test /src/cmd/ilife-api
 
 EXPOSE $PORT
 
-ENTRYPOINT cd src/github.com/lion-devs/ilife-api/cmd/ilife-api/ && go run main.go
-
-#docker build -t ilifeapi -f build/Dockerfile .
-#docker run -itd -p 8080:8080 ilifeapi
+CMD /bin/test
