@@ -1,4 +1,4 @@
-FROM golang:1.16.3-alpine3.13
+FROM golang:1.16.4-alpine3.13
 
 #MAINTAINER hugh.12345zxcvb@gmail.com
 #MAINTAINER gene31105@gmail.com
@@ -12,7 +12,7 @@ WORKDIR /src/
 COPY . /src
 
 RUN set -eux;\
-    CGO_ENABLED=0 go build -v -o /bin/ilife-api /src/cmd
+    CGO_ENABLED=0 go build -a -v -o /bin/ilife-api /src/cmd
 
 EXPOSE $PORT
 
