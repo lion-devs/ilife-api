@@ -11,6 +11,7 @@ WORKDIR /src/
 
 COPY . /src
 
+# Disabling cgo results in a fully static binary that can run without C libs
 RUN set -eux;\
     CGO_ENABLED=0 go build -a -v -o /bin/ilife-api /src/cmd
 

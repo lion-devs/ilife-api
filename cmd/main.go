@@ -1,47 +1,36 @@
 package main
 
 import (
-	"github.com/lion-devs/ilife-api/pkg/auth"
-	"github.com/lion-devs/ilife-api/pkg/controller"
-	"net/http"
-
-	"github.com/gin-gonic/gin"
+	"github.com/lion-devs/ilife-api/pkg/database"
+	"github.com/lion-devs/ilife-api/pkg/model"
+	"github.com/lion-devs/ilife-api/pkg/route"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
+	"log"
 )
+
+var err error
 
 func main() {
 
-	var loginService service.LoginService = service.StaticLoginService()
-	var jwtService service.JWTService = service.JWTAuthService()
-	var loginController controller.LoginController = controller.LoginHandler(loginService, jwtService)
+	// init database connection
+	database.DB, err = gorm.Open(mysql.Open(database.DbURL(database.BuildDBConfig())), &gorm.Config{})
+	log.Println("Database mysql connected.")
 
-	server := gin.New()
+	if err != nil {
+		log.Fatalf("Error when connecting to database: '%v'", err)
+	}
 
-	server.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "Hello world",
-			"interface": []interface{}{
-				"str1",
-				"str2",
-			},
-			"map": map[string]string {
-				"k1": "v1",
-				"k2": "v2",
-			},
-		})
-	})
+	// Migrate the schema from code to database
+	err := database.DB.AutoMigrate(&model.User{})
+	if err != nil {
+		return
+	}
 
-	server.POST("/api/v1/login", func(ctx *gin.Context) {
-		token := loginController.Login(ctx)
-		if token != "" {
-			ctx.JSON(http.StatusOK, gin.H{
-				"data": map[string]string {
-					"token": token,
-				},
-			})
-		} else {
-			ctx.JSON(http.StatusUnauthorized, nil)
-		}
-	})
-	port := "8080"
-	server.Run(":" + port) // listen and serve on 0.0.0.0:8080
+	r := route.SetupRouter()
+	//running
+	err = r.Run("localhost:8080") // listen and serve on 0.0.0.0:8080
+	if err != nil {
+		return
+	}
 }
